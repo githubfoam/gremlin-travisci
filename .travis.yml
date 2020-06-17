@@ -1,0 +1,61 @@
+---
+sudo: required
+dist: bionic
+notifications:
+  slack:
+    on_failure: always
+fleet_script_tasks : &fleet_script_tasks
+      script:
+        - python --version
+fleet_install_tasks : &fleet_install_tasks
+      install:
+        - pip install -r requirements.txt
+matrix:
+  fast_finish: true
+  include:
+    - name: "gremlin Python 3.7 on xenial amd64"
+      dist: bionic
+      arch: amd64
+      # addons:
+      #      snaps:
+      #        - name: minikube
+      #          confinement: strict
+      #          channel: stable
+      language: python
+      python: 3.7
+      before_install:
+        - pip3 install virtualenv
+        - virtualenv -p $(which python3) ~venvpy3
+        - source ~venvpy3/bin/activate
+      <<: *fleet_install_tasks
+      <<: *fleet_script_tasks
+      script:
+        - echo "deb https://deb.gremlin.com/ release non-free" | sudo tee /etc/apt/sources.list.d/gremlin.list #add the gremlin repo
+        - sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 9CDB294B29A5B1E2E00C24C022E8EF3461A50EF6 #Import the GPG key
+        - sudo apt-get update && sudo apt-get install -qqy gremlin gremlind #install the Gremlin client and daemon
+        - gremlin init &
+      after_success:
+        - deactivate
+    - name: "gremlin k8s Python 3.7 on xenial amd64"
+      dist: bionic
+      arch: amd64
+      # addons:
+      #      snaps:
+      #        - name: minikube
+      #          confinement: strict
+      #          channel: stable
+      language: python
+      python: 3.7
+      before_install:
+        - pip3 install virtualenv
+        - virtualenv -p $(which python3) ~venvpy3
+        - source ~venvpy3/bin/activate
+      <<: *fleet_install_tasks
+      <<: *fleet_script_tasks
+      script:
+        - echo "deb https://deb.gremlin.com/ release non-free" | sudo tee /etc/apt/sources.list.d/gremlin.list #add the gremlin repo
+        - sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 9CDB294B29A5B1E2E00C24C022E8EF3461A50EF6 #Import the GPG key
+        - sudo apt-get update && sudo apt-get install -qqy gremlin gremlind #install the Gremlin client and daemon
+        - gremlin init &
+      after_success:
+        - deactivate
