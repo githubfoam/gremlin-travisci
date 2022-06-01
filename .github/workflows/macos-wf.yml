@@ -1,4 +1,4 @@
-name: "chaostoolkit core  ubuntuCI workflow"
+name: "chaostoolkit macos CI workflow"
 
 
 on:
@@ -25,6 +25,13 @@ jobs:
       - name: "osfingerprinting"
         run: uname -a    
       - name: "Install chaostoolkit"
-        run: |            
+        run: |           
+          # Install Python 
           brew install python3
+          # Create a virtual environment
+          python3 -m venv ~/.venvs/chaostk 
+          source  ~/.venvs/chaostk/bin/activate
+          # Install the CLI
+          pip install -U chaostoolkit
+          chaos --version            
         

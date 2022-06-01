@@ -1,4 +1,4 @@
-name: "chaostoolkit core  ubuntuCI workflow"
+name: "chaostoolkit ubuntu CI workflow"
 
 
 on:
@@ -18,8 +18,12 @@ jobs:
     - name: "Install chaostoolkit"
       run: |
         # Install Python
-        apt-get install python3 python3-venv
+        sudo apt-get install python3 python3-venv
         # Create a virtual environment
-        python3 -m venv ~/.venvs/chaostk   
+        python3 -m venv ~/.venvs/chaostk 
+        source  ~/.venvs/chaostk/bin/activate  
+        # Install the CLI
+        pip install -U chaostoolkit
+        chaos --version         
 
         
