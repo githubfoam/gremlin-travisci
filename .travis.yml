@@ -16,11 +16,6 @@ matrix:
     - name: "gremlin Python 3.7 on xenial amd64"
       dist: bionic
       arch: amd64
-      # addons:
-      #      snaps:
-      #        - name: minikube
-      #          confinement: strict
-      #          channel: stable
       language: python
       python: 3.7
       before_install:
@@ -39,11 +34,6 @@ matrix:
     - name: "gremlin k8s Python 3.7 on xenial amd64"
       dist: bionic
       arch: amd64
-      # addons:
-      #      snaps:
-      #        - name: minikube
-      #          confinement: strict
-      #          channel: stable
       language: python
       python: 3.7
       before_install:
