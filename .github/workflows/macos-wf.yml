@@ -1,0 +1,30 @@
+name: "chaostoolkit core  ubuntuCI workflow"
+
+
+on:
+  push:
+    branches: [ dev ]
+
+jobs:
+
+# https://chaostoolkit.org/reference/usage/install/
+ macos-latest:
+      name: "macos-latest 10.15.7"
+      runs-on: macos-latest
+      steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: "brew update"
+        run: brew update      
+      - name: "check on brew version"
+        run: brew --version   #Homebrew 2.5.12   
+      - name: "Get OS X System Version"
+        run: sw_vers       
+      - name: "Get Mac System Details with system_profiler"
+        run: system_profiler | more  
+      - name: "osfingerprinting"
+        run: uname -a    
+      - name: "Install chaostoolkit"
+        run: |            
+          brew install python3
+        

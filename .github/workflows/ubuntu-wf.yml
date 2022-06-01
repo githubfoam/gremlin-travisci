@@ -1,0 +1,25 @@
+name: "chaostoolkit core  ubuntuCI workflow"
+
+
+on:
+  push:
+    branches: [ dev ]
+
+jobs:
+
+# https://chaostoolkit.org/reference/usage/install/
+  ubuntu-latest-chaostoolkit-job:
+    name: "chaostoolkit on ubuntu-latest"
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: "os fingerprinting"
+      run: hostnamectl status 
+    - name: "Install chaostoolkit"
+      run: |
+        # Install Python
+        apt-get install python3 python3-venv
+        # Create a virtual environment
+        python3 -m venv ~/.venvs/chaostk   
+
+        
