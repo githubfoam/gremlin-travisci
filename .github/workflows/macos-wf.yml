@@ -35,6 +35,7 @@ jobs:
           pip install -U chaostoolkit
           chaos --version            
           git clone https://github.com/yolannel/CTKBlockchain
+          cd CTK*
           # create the blockchain before running the experiment by running the blockchain.py fil
           python blockchain.py
           # Running the experiment

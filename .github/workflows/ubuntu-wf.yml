@@ -46,6 +46,7 @@ jobs:
         chaos --version        
         git clone https://github.com/yolannel/CTKBlockchain
         # create the blockchain before running the experiment by running the blockchain.py fil
+        cd CTK*
         python blockchain.py
         # Running the experiment
         chaos run testTransaction.json
